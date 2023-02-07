@@ -1,0 +1,18 @@
+.body {
+    background-color: #f5f5f5;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@900&family=Nunito:ital,wght@0,1000;1,1000&family=Poppins:ital,wght@1,900&family=Titillium+Web:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
+
+.logo {
+    font-family: 'Archivo', sans-serif;
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.html, body {
+    font-family: 'Barlow', sans-serif;
+
+}
