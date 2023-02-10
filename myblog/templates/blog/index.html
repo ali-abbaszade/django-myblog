@@ -1,39 +1,13 @@
 {% extends 'base/base.html' %} {% block title %}Home Page{% endblock title %} 
-{% load humanize %} {% block content %} {% include 'base/navbar.html' %} 
+{% block content %} {% include 'base/navbar.html' %} 
 {% include 'blog/components/splash.html' %}
 
 <div class="container pt-5">
     <div class="row">
         <div class="clo-12 col-lg-8">
-            {% for post in posts %}
-            <a href="#" class="text-decoration-none">
-                <div class="card border-0 pb-3 pb-sm-5">
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="card-body p-0">
-                                <div class="pb-2 text-body">
-                                    {{post.author}}
-                                </div>
-                                <h1 class="mb-1 fs-3 text-body fw-bold">
-                                    {{post.title}}
-                                </h1>
-                                <p class="text-muted">
-                                    {{post.body|truncatewords:10}}
-                                </p>
-                                <div class="text-muted">
-                                    {{post.updated_at|naturalday}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <img src="{{ post.image.url }}"
-                                class="img-fluid float-end"
-                                alt="sample" />
-                        </div>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
+
+            {% include 'blog/components/post-list-elements.html' %}
+
         </div>
         <div class="d-none d-lg-block col-4">b</div>
     </div>
