@@ -1,0 +1,13 @@
+<div class="mb-4">
+    <div class="border-bottom">
+        <div class="pb-4">
+            {% for tag in tags %}
+            <span class="border border-dark p-1 px-3 mb-2 me-1 rounded-pill" style="display:inline-block;">
+                <a class="text-decoration-none text-dark">
+                    {{tag.name}}
+                </a>
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>

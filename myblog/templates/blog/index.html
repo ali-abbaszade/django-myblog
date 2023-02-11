@@ -1,5 +1,8 @@
-{% extends 'base/base.html' %} {% block title %}Home Page{% endblock title %} 
-{% block content %} {% include 'base/navbar.html' %} 
+{% extends 'base/base.html' %}
+{% load tag_cloud %}
+{% block title %}Home Page{% endblock title %}
+{% block content %}
+{% include 'base/navbar.html' %}
 {% include 'blog/components/splash.html' %}
 
 <div class="container pt-5">
@@ -9,7 +12,9 @@
             {% include 'blog/components/post-list-elements.html' %}
 
         </div>
-        <div class="d-none d-lg-block col-4">b</div>
+        <div class="d-none d-lg-block col-4">
+            {% sidebar_tag_cloud %}
+        </div>
     </div>
 </div>
 {% endblock content %}

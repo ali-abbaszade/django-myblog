@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from taggit.managers import TaggableManager
 
 
 class Post(models.Model):
@@ -16,6 +17,7 @@ class Post(models.Model):
     image = models.ImageField(default="blog/default.jpg", upload_to="blog/")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-created_at"]
