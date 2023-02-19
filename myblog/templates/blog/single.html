@@ -1,6 +1,7 @@
 {% extends 'base/3-col-template.html' %}
 {% load humanize %}
 {% load tag_cloud %}
+{% load related_posts %}
 
 
 {% block content-left %}
@@ -40,5 +41,8 @@
 
 {% block content-right %}
 {% sidebar_tag_cloud %}
+
+{% related post.slug %}
+
 
 {% endblock %}
