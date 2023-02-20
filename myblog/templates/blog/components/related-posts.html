@@ -1,0 +1,20 @@
+<div class="col-12">
+    <div class="pb-3">More from {{post.author}}</div>
+    {% for post in related_posts %}
+    <a href="{{post.get_absolute_url}}" class="text-decoration-none">
+        <div class="card mb-3 border-0 ps-1">
+            <div class="row">
+                <div class="col-9 pe-2">
+                    <span class="text-dark small">{{post.author}}</span>
+                    <h1 class="fs-6 mb-1 text-dark fw-bold">{{post.title|truncatechars:80}}</h1>
+                </div>
+                <div class="col-3">
+                    <img src="{{ post.image.url }}" class="img-fluid float-end" alt="sample" />
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+
+
+</div>
