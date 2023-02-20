@@ -1,0 +1,23 @@
+{% extends 'base/3-col-template.html' %}
+{% load humanize %}
+{% load tag_cloud %}
+{% load related_posts %}
+
+
+{% block content-left %}
+{% include 'base/secondary-navbar.html' %}
+{% endblock %}
+
+{% block content-mid %}
+
+<div class="center mx-auto" style="max-width: 683px">
+    <h1 class="fs-1 fw-bold pb-5">{{slug|title}}</h1>
+    {% include 'blog/components/tag-post-list-elements.html' %}
+</div>
+{% endblock %}
+
+{% block content-right %}
+{% sidebar_tag_cloud %}
+
+
+{% endblock %}

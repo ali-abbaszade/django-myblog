@@ -18,3 +18,22 @@ class PostSingleView(DetailView):
     model = Post
     context_object_name = "post"
     template_name = "blog/single.html"
+
+
+class TagListView(ListView):
+    model = Post
+    paginate_by = 10
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        return Post.objects.filter(tags__name__in=[self.kwargs["slug"]])
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return "blog/components/tag-post-list-elements.html"
+        return "blog/tags.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TagListView, self).get_context_data(**kwargs)
+        context["slug"] = self.kwargs["slug"]
+        return context
