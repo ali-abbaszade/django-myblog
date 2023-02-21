@@ -1,5 +1,6 @@
 from django.views.generic import DetailView, ListView
 
+from .forms import PostSearchForm
 from .models import Post
 
 
@@ -37,3 +38,21 @@ class TagListView(ListView):
         context = super(TagListView, self).get_context_data(**kwargs)
         context["slug"] = self.kwargs["slug"]
         return context
+
+
+class PostSearchView(ListView):
+    model = Post
+    paginate_by = 10
+    context_object_name = "posts"
+    form_class = PostSearchForm
+
+    def get_queryset(self):
+        form = self.form_class(self.request.GET)
+        if form.is_valid():
+            query = form.cleaned_data["search"]
+            return Post.objects.filter(title__icontains=query)
+
+        return []
+
+    def get_template_names(self):
+        return "blog/search.html"
