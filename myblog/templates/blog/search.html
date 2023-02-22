@@ -1,3 +1,32 @@
-{% for post in posts %}
-<div>{{post.title}}</div>
-{% endfor %}
+{% extends 'base/3-col-template.html' %}
+{% load humanize %}
+{% load tag_cloud %}
+{% load related_posts %}
+
+
+{% block content-left %}
+{% include 'base/secondary-navbar.html' %}
+{% endblock %}
+
+{% block content-mid %}
+
+<div class="center mx-auto" style="max-width: 683px">
+    <h1 class="fs-1 fw-bold pb-5">
+        {% if posts %}
+        <span class="text-muted">Results for </span>{{request.GET.search}}
+        {% else %}
+        <span>Try again</span>
+        {% endif %}
+    </h1>
+    {% include 'blog/components/search-post-list-elements.html' %}
+    {% if posts|length == 0 %}
+    <div class="col-12">Try searching for something else</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block content-right %}
+{% sidebar_tag_cloud %}
+
+
+{% endblock %}
