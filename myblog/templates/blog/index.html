@@ -1,9 +1,9 @@
-{% extends 'base/base.html' %}
-{% load tag_cloud %}
-{% block title %}Home Page{% endblock title %}
+{% extends 'base/base.html' %} {% load tag_cloud %} 
+{% load latest_post %}
+{% block title %} Home Page {% endblock title %}
 {% block content %}
-{% include 'base/navbar.html' %}
-{% include 'blog/components/splash.html' %}
+{% include 'base/navbar.html' %} 
+{% last_post %}
 
 <div class="container pt-5">
     <div class="row">
@@ -11,8 +11,7 @@
             {% include 'blog/components/post-list-elements.html' %}
         </div>
         <div class="d-none d-lg-block col-4">
-            {% sidebar_tag_cloud %}
-            {% include 'base/footer.html' %}
+            {% sidebar_tag_cloud %} {% include 'base/footer.html' %}
         </div>
     </div>
 </div>
