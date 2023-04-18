@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "myblog.blog.apps.BlogConfig",
+    "myblog.api.apps.ApiConfig",
     "django.contrib.humanize",
     "django_extensions",
     "django_htmx",
     "taggit",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
