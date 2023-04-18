@@ -10,4 +10,14 @@ class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = models.Post
-        fields = ["title", "body", "slug", "author", "tags", "created_at"]
+        fields = ["id", "title", "body", "slug", "author", "tags", "created_at"]
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    posts = serializers.HyperlinkedRelatedField(
+        view_name="post_detail", many=True, read_only=True
+    )
+
+    class Meta:
+        model = models.User
+        fields = ["id", "username", "posts"]
