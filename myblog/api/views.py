@@ -15,7 +15,7 @@ class PostDetail(generics.RetrieveAPIView):
     serializer_class = serializers.PostSerializer
 
 
-class AuthorList(generics.ListAPIView):
+class AuthorCreateList(generics.ListCreateAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.AuthorSerializer
 

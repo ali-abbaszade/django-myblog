@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
@@ -20,4 +21,15 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ["id", "username", "posts"]
+        fields = ["id", "username", "email", "password", "posts"]
+        extra_kwargs = {
+            "password": {"write_only": True, "style": {"input_type": "password"}}
+        }
+
+    def create(self, validated_data):
+        user = models.User.objects.create(
+            username=validated_data["username"].lower(),
+            password=make_password(validated_data["password"]),
+            email=validated_data["email"],
+        )
+        return user

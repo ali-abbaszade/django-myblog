@@ -7,5 +7,5 @@ register = template.Library()
 
 @register.inclusion_tag("blog/components/splash.html")
 def last_post():
-    latest_post = Post.objects.filter(status='published').last()
+    latest_post = Post.objects.filter(status="published").first()
     return {"latest_post": latest_post}
