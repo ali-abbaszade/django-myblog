@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_htmx",
     "taggit",
     "rest_framework",
+    'django_summernote',
 ]
 
 MIDDLEWARE = [

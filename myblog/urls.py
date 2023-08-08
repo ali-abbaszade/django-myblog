@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("myblog.blog.urls")),
     path("api/", include("myblog.api.urls")),
+    path('summernote/', include('django_summernote.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
