@@ -1,5 +1,5 @@
 from django.views.generic import DetailView, ListView
-
+from django.db.models import Q
 from .forms import PostSearchForm
 from .models import Post
 
@@ -50,7 +50,7 @@ class PostSearchView(ListView):
         form = self.form_class(self.request.GET)
         if form.is_valid():
             query = form.cleaned_data["search"]
-            return Post.objects.filter(title__icontains=query)
+            return Post.objects.filter(Q(title__icontains=query) | Q(tags__name__in=[query]))
 
         return []
 
