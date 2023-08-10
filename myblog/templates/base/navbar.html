@@ -29,14 +29,20 @@
         />
       </form>
       {% if request.user.is_authenticated %}
-      <div class="ms-3 ">
-          <p class="secondary text-decoration-none text-muted fs-5">{{request.user.email}}</p>
+      <div class="ms-3 fs-5">
+        <a href="#"> {{request.user.email}} </a>
+      </div>
+      <div class="ms-3 fs-5">
+        <a href="{% url 'logout' %}">Logout</a>
       </div>
       {% else %}
-      <div class="ms-3 ">
-        <a href="{% url 'signup' %}" class="secondary text-decoration-none text-muted fs-5">Sing Up</a>
+      <div class="ms-3 fs-5">
+        <a href="{% url 'signup' %}">Sing Up</a>
       </div>
-    {% endif %}
+      <div class="ms-3 fs-5">
+        <a href="{% url 'login' %}">Sing In</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </nav>
