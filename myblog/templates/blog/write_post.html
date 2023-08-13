@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %} 
+{% block content %} 
+{% include 'base/navbar.html'%}
+<div class="container">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h2 class="my-5">Write a post</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="form-group my-3">
+    {{ form.title.label_tag }}
+    <input
+      type="text"
+      class="form-control form-control-lg {% if form.title.errors %}is-invalid{% endif %}"
+      id="id_title"
+      name="title"/>
+    {% if form.title.errors %}
+    <div class="invalid-feedback">{{ form.title.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="form-group my-3">
+    {{ form.content.label_tag }}
+    <textarea
+      type="text"
+      class="form-control form-control-lg {% if form.content.errors %}is-invalid{% endif %}"
+      id="id_content"
+      name="body"
+      cols="40"
+      rows="10"
+    >
+{{ form.content.value}}</textarea>
+    {% if form.content.errors %}
+    <div class="invalid-feedback">{{ form.content.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="form-group my-3">
+    {{ form.image.label_tag }}<br />
+    <input
+      type="file"
+      id="id_image"
+      name="image"
+    />
+  </div>
+
+  <div class="form-group my-3">
+    {{form.status.label_tag}} <br>
+    <select name="status" id="id_status">
+      {% for post_status in form.status.field.choices %}
+        <option value="{{post_status.0}}">{{post_status.1}}</option>
+      {% endfor %}
+    </select>
+
+  </div>
+
+  <div class="form-group my-3">
+    {{ form.tags.label_tag }}
+    <input type="text" name="tags" required
+    placeholder="A comma-separated list of tags"
+    class="form-control form-control-lg" />
+  </div>
+
+  <button type="submit" class="btn btn-primary my-3"> Create a post </button>
+</form>
+</div>
+</div>
+</div>  
+{% endblock content %}

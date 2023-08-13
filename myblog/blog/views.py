@@ -1,13 +1,34 @@
-from django.views.generic import DetailView, ListView
+from typing import Any
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import models
+from django.db.models.query import QuerySet
+from django.views.generic import DetailView, ListView, CreateView
 from django.db.models import Q
+from django.contrib import messages
+from django.urls import reverse_lazy
 from .forms import PostSearchForm
 from .models import Post
 
+
+class CreatePostView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ["title", "body", "status", "image", "tags"]
+    template_name = "blog/write_post.html"
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(self.request, "Your post created successfully.")
+        return super().form_valid(form)
 
 class HomeView(ListView):
     model = Post
     context_object_name = "posts"
     paginate_by = 10
+
+    def get_queryset(self):
+        posts = Post.objects.filter(status="published")
+        return posts
 
     def get_template_names(self):
         if self.request.htmx:
@@ -50,7 +71,9 @@ class PostSearchView(ListView):
         form = self.form_class(self.request.GET)
         if form.is_valid():
             query = form.cleaned_data["search"]
-            return Post.objects.filter(Q(title__icontains=query) | Q(tags__name__in=[query]))
+            return Post.objects.filter(
+                Q(title__icontains=query) | Q(tags__name__in=[query])
+            )
 
         return []
 

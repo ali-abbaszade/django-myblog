@@ -14,7 +14,7 @@
                     <div class="card-body p-0">
                         <div class="pb-2 text-body">{{post.author}}</div>
                         <h1 class="mb-1 text-body fw-bold fs-2">{{post.title|truncatechars:80}}</h1>
-                        <h2 class="text-muted fs-6 d-none d-sm-block">{{post.body|truncatewords:20}}</h2>
+                        <h2 class="text-muted fs-6 d-none d-sm-block">{{post.body|truncatewords:20|safe}}</h2>
                         <div class="text-muted">{{post.updated_at|naturalday}}</div>
                     </div>
                 </div>

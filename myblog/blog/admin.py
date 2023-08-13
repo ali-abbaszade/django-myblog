@@ -7,6 +7,7 @@ from .models import Post
 
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = ("body",)
+    prepopulated_fields = {"slug": ["title"]}
 
 
 admin.site.register(Post, PostAdmin)
