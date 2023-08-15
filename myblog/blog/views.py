@@ -2,17 +2,17 @@ from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
 from django.db.models.query import QuerySet
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.db.models import Q
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import PostSearchForm
 from .models import Post
-
+from . import forms
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ["title", "body", "status", "image", "tags"]
+    form_class = forms.PostForm
     template_name = "blog/write_post.html"
     success_url = reverse_lazy("home")
 
@@ -20,6 +20,19 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         messages.success(self.request, "Your post created successfully.")
         return super().form_valid(form)
+
+
+class UpdatePostView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = forms.PostForm
+    template_name = "blog/update_post.html"
+
+    def get_success_url(self):
+        if self.object.status == "draft":
+            return reverse_lazy("home")
+        else:
+            return reverse_lazy("post_single", args=[self.object.slug])
+
 
 class HomeView(ListView):
     model = Post
