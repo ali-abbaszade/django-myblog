@@ -29,21 +29,21 @@
         />
       </form>
       <div class="ms-3 fs-5">
-        <a href="{% url 'write_post' %}"> Write </a>
+        <a href="{% url 'write_post' %}" roll="button" class="btn btn-dark"> Write </a>
       </div>
       {% if request.user.is_authenticated %}
       <div class="ms-3 fs-5">
         <a href="#"> {{request.user.email}} </a>
       </div>
       <div class="ms-3 fs-5">
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'logout' %}" roll="button" class="btn btn-danger">Logout</a>
       </div>
       {% else %}
       <div class="ms-3 fs-5">
-        <a href="{% url 'signup' %}">Sing Up</a>
+        <a href="{% url 'signup' %}" roll="button" class="btn btn-success">Sing Up</a>
       </div>
       <div class="ms-3 fs-5">
-        <a href="{% url 'login' %}">Sing In</a>
+        <a href="{% url 'login' %}" roll="button" class="btn btn-info">Sing In</a>
       </div>
       {% endif %}
     </div>

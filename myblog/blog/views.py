@@ -2,7 +2,7 @@ from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
 from django.db.models.query import QuerySet
-from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -29,10 +29,17 @@ class UpdatePostView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         if self.object.status == "draft":
+            messages.success(self.request, "Your post updated successfully.")
             return reverse_lazy("home")
         else:
+            messages.success(self.request, "Your post updated successfully.")
             return reverse_lazy("post_single", args=[self.object.slug])
 
+
+class DeletePostView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "blog/delete_post.html"
+    success_url = reverse_lazy("home")
 
 class HomeView(ListView):
     model = Post
