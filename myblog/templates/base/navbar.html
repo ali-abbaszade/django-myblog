@@ -33,7 +33,7 @@
       </div>
       {% if request.user.is_authenticated %}
       <div class="ms-3 fs-5">
-        <a href="#"> {{request.user.email}} </a>
+        <a href="{% url 'profile' request.user.id %}" roll="button" class="btn btn-secondary"> Profile </a>
       </div>
       <div class="ms-3 fs-5">
         <a href="{% url 'logout' %}" roll="button" class="btn btn-danger">Logout</a>

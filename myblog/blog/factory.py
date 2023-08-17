@@ -7,14 +7,13 @@ from .models import Post
 
 FAKE = faker.Faker()
 
-
 class PostFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Post
 
     title = factory.Faker("sentence", nb_words=10)
     slug = factory.Faker("slug")
-    author = User.objects.get_or_create(username="ali")[0]
+    author = User.objects.get_or_create(username="admin@email.com")[0]
     status = "published"
     image = factory.LazyAttribute(
         lambda _: ContentFile(

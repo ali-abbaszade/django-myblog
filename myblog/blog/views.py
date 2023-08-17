@@ -1,14 +1,12 @@
-from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import models
-from django.db.models.query import QuerySet
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import PostSearchForm
-from .models import Post
+from .models import Post, Profile
 from . import forms
+
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
@@ -101,3 +99,8 @@ class PostSearchView(ListView):
         if self.request.htmx:
             return "blog/components/search-post-list-elements.html"
         return "blog/search.html"
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = "blog/profile.html"
