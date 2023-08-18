@@ -18,7 +18,7 @@
         <h4 class="card-title">{{object.owner}}</h4>
     {% endif %}
       <p class="card-text">{{object.about|safe}}</p>
-      <a href="#" roll="button" class="btn btn-secondary">Update profile</a>
+      <a href="{% url 'update_profile' request.user.id %}" roll="button" class="btn btn-secondary">Update profile</a>
     </div>
   </div>
 </div>

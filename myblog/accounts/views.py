@@ -3,10 +3,11 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from . import forms
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView
 
 
 def signup_view(request):
@@ -65,3 +66,16 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return models.Profile.objects.get(owner=self.kwargs['id'])
+    
+
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    model = models.Profile
+    fields = ['name', 'about']
+    template_name = "accounts/update_profile.html"
+
+    def get_object(self):
+        return models.Profile.objects.get(owner=self.kwargs['id'])
+    
+    def get_success_url(self):
+        return reverse_lazy("profile", kwargs={"id":self.object.owner.id})
+        
