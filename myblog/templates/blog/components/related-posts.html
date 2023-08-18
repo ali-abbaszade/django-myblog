@@ -1,5 +1,5 @@
 <div class="col-12">
-    <div class="pb-3">More from {{post.author}}</div>
+    <div class="pb-3">More from {{post.author.first_name}}</div>
     {% for post in related_posts %}
     <a href="{{post.get_absolute_url}}" class="text-decoration-none">
         <div class="card mb-3 border-0 ps-1">

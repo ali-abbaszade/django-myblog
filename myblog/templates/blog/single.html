@@ -31,7 +31,7 @@
 
 <div class="blog center mx-auto" style="max-width: 683px">
 
-    <div class="text-muted">{{post.author}}</div>
+    <div class="text-muted">{{post.author.first_name}}</div>
     {% if request.user == post.author %}
     <div><a  class="float-end btn btn-secondary" roll="button" href="{% url 'update_post' post.slug %}">Update</a></div>
     <div><a  class="float-end btn btn-danger me-2" roll="button" href="{% url 'delete_post' post.slug %}">Delete</a></div>

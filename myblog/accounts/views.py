@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from . import forms
+from . import models
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
 
 
 def signup_view(request):
@@ -54,3 +57,11 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("home")
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = models.Profile
+    template_name = "accounts/profile.html"
+
+    def get_object(self):
+        return models.Profile.objects.get(owner=self.kwargs['id'])

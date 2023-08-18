@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import PostSearchForm
-from .models import Post, Profile
+from .models import Post
 from . import forms
 
 
@@ -101,6 +101,3 @@ class PostSearchView(ListView):
         return "blog/search.html"
 
 
-class ProfileView(LoginRequiredMixin, DetailView):
-    model = Profile
-    template_name = "blog/profile.html"
