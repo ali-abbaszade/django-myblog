@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_htmx",
     "taggit",
+    "hitcount",
     "rest_framework",
     "django_summernote",
 ]

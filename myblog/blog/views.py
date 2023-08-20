@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from .forms import PostSearchForm
 from .models import Post
 from . import forms
-
+from hitcount.views import HitCountDetailView
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
@@ -54,11 +54,11 @@ class HomeView(ListView):
         return "blog/index.html"
 
 
-class PostSingleView(DetailView):
+class PostSingleView(HitCountDetailView):
     model = Post
     context_object_name = "post"
     template_name = "blog/single.html"
-
+    count_hit = True
 
 class TagListView(ListView):
     model = Post
