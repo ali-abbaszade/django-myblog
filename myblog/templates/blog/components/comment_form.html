@@ -1,0 +1,40 @@
+<h2>Leave your comment!</h2>
+
+<div>
+  {% if request.user.id in post.users_leave_comment %}
+    <p>You have already submitted your vote</p>
+  {% elif request.user.id == post.author.id %}
+    <p>You can't vote your own post</p>
+  {% elif user.is_authenticated %}
+  <form method="POST" class='pt-3'>
+    {% csrf_token %}
+    <div>
+      {{ form }}
+      <button class="btn btn-info mt-3 mb-3" type="submit">
+        Add comment
+      </button>
+    </div>
+  </form>
+  {% else %}
+  <p>Please login to leave a comment</p>
+  {% endif %} 
+  {% if post.comment_set.exists %}
+  <div><strong class="text-secondary">{{ post.vote_ratio.0 }} Comment{{ post.vote_ratio.0|pluralize }}</strong></div>
+  <div><strong class="text-secondary"> {{post.vote_ratio.1}}% Positive Feedback ({{post.vote_ratio.0}}Vote{{post.vote_ratio.0|pluralize:"s"}})</strong></div>
+  {% endif %}
+  <hr />
+  <ul>
+    {% for comment in post.comment_set.all %}
+    <li>
+      <div>
+        <span>
+          <strong class="text-info">{{ comment.user.first_name }}</strong>
+        </span>
+        <p>{{ comment.body|safe }}</p>
+      </div>
+    </li>
+    {% empty %}
+    <p>no comment...</p>
+    {% endfor %}
+  </ul>
+</div>

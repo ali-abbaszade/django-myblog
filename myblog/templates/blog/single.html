@@ -41,12 +41,13 @@
     <h1 class="fw-bold pb-2">{{post.title}}</h1>
     <div class="post">{{post.body|markdown|safe}}</div>
 
+    {% include 'blog/components/comment_form.html' %}
 </div>
 {% endblock %}
 
+
 {% block content-right %}
 {% sidebar_tag_cloud %}
-
 {% related post.slug %}
 
 

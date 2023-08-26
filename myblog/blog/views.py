@@ -1,12 +1,21 @@
+from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
+from django.views.generic import (
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.db.models import Q
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import PostSearchForm
-from .models import Post
+from .models import Post, Comment
 from . import forms
 from hitcount.views import HitCountDetailView
+
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
@@ -39,6 +48,7 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
     template_name = "blog/delete_post.html"
     success_url = reverse_lazy("home")
 
+
 class HomeView(ListView):
     model = Post
     context_object_name = "posts"
@@ -54,11 +64,20 @@ class HomeView(ListView):
         return "blog/index.html"
 
 
-class PostSingleView(HitCountDetailView):
-    model = Post
-    context_object_name = "post"
-    template_name = "blog/single.html"
-    count_hit = True
+def post_single(request, slug):
+    post = Post.objects.get(slug=slug)
+    form = forms.CommentForm()
+    if request.method == "POST":
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return redirect("post_single", slug=post.slug)
+    context = {"form": form, "post": post}
+    return render(request, "blog/single.html", context)
+
 
 class TagListView(ListView):
     model = Post
@@ -99,5 +118,3 @@ class PostSearchView(ListView):
         if self.request.htmx:
             return "blog/components/search-post-list-elements.html"
         return "blog/search.html"
-
-
