@@ -14,7 +14,8 @@ from django.urls import reverse_lazy
 from .forms import PostSearchForm
 from .models import Post, Comment
 from . import forms
-from hitcount.views import HitCountDetailView
+from hitcount.utils import get_hitcount_model
+from hitcount.views import HitCountMixin
 
 
 class CreatePostView(LoginRequiredMixin, CreateView):
@@ -75,7 +76,15 @@ def post_single(request, slug):
             comment.user = request.user
             comment.save()
             return redirect("post_single", slug=post.slug)
-    context = {"form": form, "post": post}
+
+    context = {"form": form, "post": post} 
+    hit_count = get_hitcount_model().objects.get_for_object(post)
+    hits = hit_count.hits
+    hitcontext = context['hitcount'] = {'pk': hit_count.pk}
+    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+    if hit_count_response.hit_counted:
+        hits += 1
+        hitcontext['total_hits'] = hits   
     return render(request, "blog/single.html", context)
 
 
