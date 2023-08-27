@@ -1,6 +1,7 @@
-# Django Blog(DRF)
+# Django Blog
 
-This project is a web application that allows users to create, read, update, and delete blog posts. The blog posts can have tags that categorize them by topics. Users can also search for blog posts by title keywords or tags. The app also tracks the number of views for each post
+This project is a web application that allows users to create, read, update, and delete blog posts. The blog posts can have tags that categorize them by topics. Users can also search for blog posts by title keywords or tags. The app also tracks the number of views for each post. 
+Users are able to leave comments and rate a post.
 
 ### Features
 
@@ -49,3 +50,15 @@ Start the server and run the app
 ```
 python manage.py runserver
 ```
+
+### Demo
+#### Home Page
+![home](index_page.gif)
+
+### Single Post
+![single_post_1](single_post_1.png)
+
+![single_post_2](single_post_2.png)
+
+### Write Page
+![write](write_post_page.png)
