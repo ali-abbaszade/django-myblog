@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from django.contrib.messages import constants as messages
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "djoser",
     "myblog.blog.apps.BlogConfig",
     "myblog.api.apps.ApiConfig",
     "myblog.accounts.apps.AccountsConfig",
@@ -51,7 +54,6 @@ INSTALLED_APPS = [
     "django_htmx",
     "taggit",
     "hitcount",
-    "rest_framework",
     "django_summernote",
 ]
 
@@ -153,4 +155,16 @@ MESSAGE_TAGS = {
     messages.SUCCESS: "alert-success",
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
+}
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
 }

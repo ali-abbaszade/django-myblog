@@ -22,6 +22,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("myblog.blog.urls")),
     path("api/", include("myblog.api.urls")),
+    path("api/auth/", include("djoser.urls")),
+    path("api/auth/", include("djoser.urls.jwt")),
     path("accounts/", include("myblog.accounts.urls")),
     path("summernote/", include("django_summernote.urls")),
 ]
