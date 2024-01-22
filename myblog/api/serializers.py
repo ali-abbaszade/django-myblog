@@ -3,6 +3,7 @@ from rest_framework import serializers
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from myblog.blog import models
+from myblog.accounts.models import Profile
 
 
 class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
@@ -11,7 +12,16 @@ class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = models.Post
-        fields = ["id", "title", "body", "slug", "author", "tags", "created_at"]
+        fields = [
+            "id",
+            "title",
+            "body",
+            "slug",
+            "status",
+            "author",
+            "tags",
+            "created_at",
+        ]
 
     def create(self, validated_data):
         return models.Post.objects.create(
@@ -27,3 +37,11 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = ["id", "username", "email", "password", "posts"]
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    owner_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ["id", "owner_id", "name", "about"]
