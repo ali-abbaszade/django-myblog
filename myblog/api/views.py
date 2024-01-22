@@ -7,11 +7,13 @@ from rest_framework.response import Response
 from myblog.blog import models
 from myblog.accounts.models import Profile
 from . import serializers
+from .pagination import DefaultPagination
 
 
 class PostViewSet(ModelViewSet):
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
+    pagination_class = DefaultPagination
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
